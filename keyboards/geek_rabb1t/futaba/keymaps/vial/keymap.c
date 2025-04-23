@@ -12,6 +12,7 @@ enum my_keycodes {
   TGL_H_SCL,
   EN_3_TAP,
   DIS_3_TAP,
+  ALT_TAB,  // Smart Alt+Tab
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -69,7 +70,19 @@ typedef enum  {
 
 static speed_mode_t speed_mode = SPEED_MODE_NORMAL;
 
+static uint16_t layer7_timer = 0;  // Layer7のタイマー
+static bool layer7_timer_active = false;  // Layer7のタイマーを監視するかどうか
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (layer_state_is(7)) {
+    if (record->event.pressed) {
+      layer7_timer_active = false;  // タイマーの監視を停止(Layer7に留まる)
+    } else {
+      layer7_timer = timer_read();  // タイマーを開始
+      layer7_timer_active = true;   // タイマーの監視を開始
+    }
+  }
+
   switch (keycode) {
     case HIGH_SPEED:
       if (record->event.pressed) {
@@ -115,8 +128,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
 
+    case ALT_TAB:
+      if (record->event.pressed) {
+        register_code(KC_LALT);
+        tap_code(KC_TAB);
+        layer_on(7);
+      } else {
+        layer7_timer = timer_read();
+        layer7_timer_active = true;
+      }
+      return false;
+
     default:
       return true;
+  }
+}
+
+void matrix_scan_user(void) {
+  if (layer7_timer_active) {
+      if (timer_elapsed(layer7_timer) > 1000) {
+          layer_off(7);
+          layer7_timer_active = false;
+          unregister_code(KC_LALT);
+      }
   }
 }
 
