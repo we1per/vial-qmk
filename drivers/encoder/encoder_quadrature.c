@@ -158,6 +158,11 @@ void encoder_driver_init(void) {
     encoder_quadrature_post_init();
 }
 
+#ifdef ENCODER_EVENT_OFFSET
+static bool last_event_cw = false;  // 前回のパルスで時計回りのイベントが送信されたかどうか
+static bool last_event_ccw = false; // 前回のパルスで反時計回りのイベントが送信されたかどうか
+#endif
+
 static void encoder_handle_state_change(uint8_t index, uint8_t state) {
     uint8_t i = index;
 
@@ -171,24 +176,49 @@ static void encoder_handle_state_change(uint8_t index, uint8_t state) {
     const uint8_t resolution = ENCODER_RESOLUTION;
 #endif
 
+#ifdef ENCODER_EVENT_OFFSET
+    // 方向が変わったらカウントリセット
+    if ((last_event_cw == true)  && (encoder_LUT[state & 0xF] > 0)) {  // 時計回りから反時計回りに変わった場合
+        encoder_pulses[i] = 0;
+    }
+    if ((last_event_ccw == true) && (encoder_LUT[state & 0xF] < 0)) {  // 反時計回りから時計回りに変わった場合
+        encoder_pulses[i] = 0;
+    }
+#endif
+
     encoder_pulses[i] += encoder_LUT[state & 0xF];
 
 #ifdef ENCODER_DEFAULT_POS
     if ((encoder_pulses[i] >= resolution) || (encoder_pulses[i] <= -resolution) || ((state & 0x3) == ENCODER_DEFAULT_POS)) {
         if (encoder_pulses[i] >= 1) {
+#elif defined(ENCODER_EVENT_OFFSET)
+    if (encoder_pulses[i] == (resolution - ENCODER_EVENT_OFFSET)) {  // 手前のパルスでイベント送信
 #else
     if (encoder_pulses[i] >= resolution) {
 #endif
-
             encoder_queue_event(index, ENCODER_COUNTER_CLOCKWISE);
+
+#ifdef ENCODER_EVENT_OFFSET
+            last_event_ccw = true;  // 反時計回りのイベントが送信されたことを記録    
+        } else {
+            last_event_ccw = false; // 反時計回りのイベントが送信されなかったことを記録
+#endif
         }
 
 #ifdef ENCODER_DEFAULT_POS
         if (encoder_pulses[i] <= -1) {
+#elif defined(ENCODER_EVENT_OFFSET)
+    if (encoder_pulses[i] == -(resolution - ENCODER_EVENT_OFFSET)) {  // 手前のパルスでイベント送信
 #else
     if (encoder_pulses[i] <= -resolution) { // direction is arbitrary here, but this clockwise
 #endif
             encoder_queue_event(index, ENCODER_CLOCKWISE);
+
+#ifdef ENCODER_EVENT_OFFSET
+            last_event_cw = true;  // 時計回りのイベントが送信されたことを記録
+        } else {
+            last_event_cw = false; // 時計回りのイベントが送信されなかったことを記録
+#endif
         }
         encoder_pulses[i] %= resolution;
 #ifdef ENCODER_DEFAULT_POS
