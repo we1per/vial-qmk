@@ -17,3 +17,5 @@
 #define MOUSE_EXTENDED_REPORT
 
 // #define POINTING_DEVICE_DEBUG
+
+#define ALTTAB_LAYER 7  // Smart Alt+Tab専用のLayer

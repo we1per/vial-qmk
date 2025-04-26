@@ -70,18 +70,22 @@ typedef enum  {
 
 static speed_mode_t speed_mode = SPEED_MODE_NORMAL;
 
-static uint16_t layer7_timer = 0;  // Layer7のタイマー
-static bool layer7_timer_active = false;  // Layer7のタイマーを監視するかどうか
+#ifdef ALTTAB_LAYER
+static uint16_t atlayer_timer = 0;  // Alt+Tab layerのタイマー
+static bool atlayer_timer_active = false;  // Alt+Tab layerのタイマーを監視するかどうか
+#endif  // ALTTAB_LAYER
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (layer_state_is(7)) {
+#ifdef ALTTAB_LAYER
+  if (layer_state_is(ALTTAB_LAYER)) {
     if (record->event.pressed) {
-      layer7_timer_active = false;  // タイマーの監視を停止(Layer7に留まる)
+      atlayer_timer_active = false;  // タイマーの監視を停止(Alt+Tab layerに留まる)
     } else {
-      layer7_timer = timer_read();  // タイマーを開始
-      layer7_timer_active = true;   // タイマーの監視を開始
+      atlayer_timer = timer_read();  // タイマーを開始
+      atlayer_timer_active = true;   // タイマーの監視を開始
     }
   }
+#endif  // ALTTAB_LAYER
 
   switch (keycode) {
     case HIGH_SPEED:
@@ -128,31 +132,35 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
 
+#ifdef ALTTAB_LAYER
     case ALT_TAB:
       if (record->event.pressed) {
         register_code(KC_LALT);
         tap_code(KC_TAB);
-        layer_on(7);
+        layer_on(ALTTAB_LAYER);
       } else {
-        layer7_timer = timer_read();
-        layer7_timer_active = true;
+        atlayer_timer = timer_read();
+        atlayer_timer_active = true;
       }
       return false;
+#endif  // ALTTAB_LAYER
 
     default:
       return true;
   }
 }
 
+#ifdef ALTTAB_LAYER
 void matrix_scan_user(void) {
-  if (layer7_timer_active) {
-      if (timer_elapsed(layer7_timer) > 1000) {
-          layer_off(7);
-          layer7_timer_active = false;
+  if (atlayer_timer_active) {
+      if (timer_elapsed(atlayer_timer) > 800) {
+          layer_off(ALTTAB_LAYER);
+          atlayer_timer_active = false;
           unregister_code(KC_LALT);
       }
   }
 }
+#endif  // ALTTAB_LAYER
 
 int LOW_SPEED_RATIO = 2;
 int HIGH_SPEED_RATIO = 2;
