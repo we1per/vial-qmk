@@ -17,3 +17,8 @@
 #define MOUSE_EXTENDED_REPORT
 
 // #define POINTING_DEVICE_DEBUG
+
+// #define ENCODER_RESOLUTION 4
+// #define ENCODER_DEFAULT_POS 0x0
+#define ALTTAB_LAYER 7  // Smart Alt+Tab専用のLayer
+#define ENCODER_EVENT_OFFSET 1  // 何パルス前にイベント送信するか

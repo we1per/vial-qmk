@@ -31,7 +31,12 @@
             "shortName": "Dis3T",
 	        "title": "Disable 3 fingers tap.",
 	        "name": "DIS_3_TAP"
-    	}
+      },
+        {
+            "shortName": "AltT",
+          "title": "Smart Alt+Tab",
+          "name": "ALT_TAB"
+      }
     ],
     "matrix": {
         "rows": 11,
