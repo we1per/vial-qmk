@@ -2,52 +2,385 @@
 	"name": "grt65_exp_kit",
     "lighting": "none",
     "customKeycodes": [
-	    {
+        {
             "shortName": "CHi",
-	        "title": "Double cursor speed.",
+	        "title": "Double cursor speed while pressing.",
 	        "name": "HIGH_SPEED"
     	},
 	    {
             "shortName": "CLw",
-	        "title": "Half cursor speed.",
+	        "title": "Half cursor speed while pressing.",
 	        "name": "LOW_SPEED"
     	},
         {
-            "shortName": "TglV",
-	        "title": "Toggle vertical scroll direction.",
-	        "name": "TGL_V_SCL"
+            "shortName": "Scroll\nMode",
+	        "title": "While pressed, it scrolls instead of cursor.",
+	        "name": "SCROLL_MODE"
+        },
+
+	    {
+            "shortName": "Val\n1",
+	        "title": "value 1.",
+	        "name": "GRT_VAL_1"
+        },
+	    {
+            "shortName": "Val\n2",
+	        "title": "Value 2.",
+	        "name": "GRT_VAL_2"
+        },
+	    {
+            "shortName": "Val\n3",
+	        "title": "Value 3.",
+	        "name": "GRT_VAL_3"
+        },
+	    {
+            "shortName": "Val\n4",
+	        "title": "Value 4.",
+	        "name": "GRT_VAL_4"
+        },
+	    {
+            "shortName": "Val\n5",
+	        "title": "Value 5.",
+	        "name": "GRT_VAL_5"
+        },
+	    {
+            "shortName": "Val\n6",
+	        "title": "Value 7.",
+	        "name": "GRT_VAL_6"
+        },
+	    {
+            "shortName": "Val\n7",
+	        "title": "Value 7.",
+	        "name": "GRT_VAL_7"
+        },
+	    {
+            "shortName": "Val\n8",
+	        "title": "Value 8.",
+	        "name": "GRT_VAL_8"
+        },
+	    {
+            "shortName": "Val\n9",
+	        "title": "Value 9.",
+	        "name": "GRT_VAL_9"
+        },
+
+	    {
+            "shortName": "ON",
+	        "title": "Feature ON",
+	        "name": "GRT_ON"
+        },
+	    {
+            "shortName": "OFF",
+	        "title": "Feature OFF",
+	        "name": "GRT_OFF"
+        },
+
+	    {
+            "shortName": "R0",
+	        "title": "Trackpad Rotation:0 degree",
+	        "name": "GRT_R0"
+        },
+	    {
+            "shortName": "R90",
+	        "title": "Trackpad Rotation:90 degree",
+	        "name": "GRT_R90"
+        },
+	    {
+            "shortName": "R180",
+	        "title": "Trackpad Rotation:180 degree",
+	        "name": "GRT_R180"
+        },
+	    {
+            "shortName": "R270",
+	        "title": "Trackpad Rotation:270 degree",
+	        "name": "GRT_R270"
+        },
+
+        {
+            "shortName": "Cursor Speed",
+	        "title": "Select V1 to V9.",
+	        "name": "GRTL_CS"
+        },
+        {
+            "shortName": "Scroll Speed",
+	        "title": "Select V1 to V9.",
+	        "name": "GRTL_SS"
+        },
+        {
+            "shortName": "Cursor\nCorrection",
+	        "title": "Select V1 to V9.",
+	        "name": "GRTL_CC"
+        },
+        {
+            "shortName": "Cursor\nAcceleration",
+	        "title": "Only ON / OFF is allowed.",
+	        "name": "GRTL_CA"
+        },
+        {
+            "shortName": "Reverse\nVertical Scroll",
+	        "title": "Only ON / OFF is allowed.",
+	        "name": "GRTL_RVS"
+        },
+        {
+            "shortName": "Reverse\nHorizontal Scroll",
+	        "title": "Only ON / OFF is allowed.",
+	        "name": "GRTL_RHS"
+        },
+        {
+            "shortName": "Inertia Cursor",
+	        "title": "Only ON / OFF is allowed.",
+	        "name": "GRTL_IC"
     	},
         {
-            "shortName": "TglH",
-	        "title": "Toggle horizontal scroll direction.",
-	        "name": "TGL_H_SCL"
+            "shortName": "Inertia Scroll",
+	        "title": "Only ON / OFF is allowed.",
+	        "name": "GRTL_IS"
     	},
         {
-            "shortName": "En3T",
-	        "title": "Enable 3 fingers tap.",
-	        "name": "EN_3_TAP"
+            "shortName": "Scroll Only",
+	        "title": "Only ON / OFF is allowed.",
+	        "name": "GRTL_SO"
     	},
         {
-            "shortName": "Dis3T",
-	        "title": "Disable 3 fingers tap.",
-	        "name": "DIS_3_TAP"
+            "shortName": "Rotate",
+	        "title": "Select R0 to R270.",
+	        "name": "GRTL_R"
+        },
+        {
+            "shortName": "One Finger Tap",
+	        "title": "Label only.",
+	        "name": "GRTL_1T"
+        },
+        {
+            "shortName": "Two Finger Tap",
+	        "title": "Label only.",
+	        "name": "GRTL_2T"
+        },
+        {
+            "shortName": "Three Finger Tap",
+	        "title": "Label only.",
+	        "name": "GRTL_3T"
+        },
+        {
+            "shortName": "Four Finger Tap",
+	        "title": "Label only.",
+	        "name": "GRTL_4T"
     	}
     ],
     "matrix": {
-        "rows": 3,
-        "cols": 4
+        "rows": 8,
+        "cols": 10
     },
     "layouts": {
-        "keymap": [
-            [{"a":6,"f":6,"w":3,"h":0.5,"d":true},"3 fingers gesture"],
-            [{"y":-0.5,"x":1,"a":4,"f":3},"1,0"],
-            [{"y":-0.5},"1,3",{"x":1},"1,1"],
-            [{"y":-0.5,"x":1},"1,2"],
-            [{"y":0.5,"a":6,"f":6,"w":3,"h":0.5,"d":true},"4 fingers gesture"],
-            [{"y":-0.5,"x":1,"a":4,"f":3},"2,0"],
-            [{"y":-0.5},"2,3",{"x":1},"2,1"],
-            [{"y":-0.5,"x":1},"2,2"],
-            [{"y":1},"0,0","0,1","0,2"]
+        "keymap":[
+  [
+    {
+      "a": 6,
+      "f": 6,
+      "w": 3,
+      "h": 0.5,
+      "d": true
+    },
+    "3 fingers gesture"
+  ],
+  [
+    {
+      "y": -0.5,
+      "x": 1,
+      "a": 4,
+      "f": 3
+    },
+    "3,1",
+    {
+      "x": 2.25,
+      "w": 2.5
+    },
+    "7,0\n\n\n\n\n\n\n\n\nTap",
+    {
+      "w": 1.5
+    },
+    "1,0",
+    {
+      "x": 1,
+      "w": 2.5
+    },
+    "5,0\n\n\n\n\n\n\n\n\nCursor_Speed",
+    {
+      "w": 1.5
+    },
+    "6,0",
+    {
+      "x": 1,
+      "w": 2.5
+    },
+    "5,1\n\n\n\n\n\n\n\n\nScroll_Speed",
+    {
+      "w": 1.5
+    },
+    "6,1"
+  ],
+  [
+    {
+      "y": -0.5
+    },
+    "3,4",
+    {
+      "x": 1
+    },
+    "3,2"
+  ],
+  [
+    {
+      "y": -0.5,
+      "x": 1
+    },
+    "3,3",
+    {
+      "x": 2.25,
+      "w": 2.5
+    },
+    "7,1\n\n\n\n\n\n\n\n\n2Finger Tap",
+    {
+      "w": 1.5
+    },
+    "2,0",
+    {
+      "x": 1,
+      "w": 2.5
+    },
+    "5,3\n\n\n\n\n\n\n\n\nCursor_Accel",
+    {
+      "w": 1.5
+    },
+    "6,3",
+    {
+      "x": 1,
+      "w": 2.5
+    },
+    "5,4\n\n\n\n\n\n\n\n\nReverseVerticalScroll",
+    {
+      "w": 1.5
+    },
+    "6,4"
+  ],
+  [
+    {
+      "x": 4.25,
+      "w": 2.5
+    },
+    "7,2\n\n\n\n\n\n\n\n\n3Finger Tap",
+    {
+      "w": 1.5
+    },
+    "3,0",
+    {
+      "x": 6,
+      "w": 2.5
+    },
+    "5,5\n\n\n\n\n\n\n\n\nReverseHorizontalScroll",
+    {
+      "w": 1.5
+    },
+    "6,5"
+  ],
+  [
+    {
+      "y": -0.5,
+      "a": 6,
+      "f": 6,
+      "w": 3,
+      "h": 0.5,
+      "d": true
+    },
+    "4 fingers gesture",
+    {
+      "x": 6.25,
+      "a": 4,
+      "f": 3,
+      "w": 2.5
+    },
+    "5,6\n\n\n\n\n\n\n\n\nInertiaCursor",
+    {
+      "w": 1.5
+    },
+    "6,6"
+  ],
+  [
+    {
+      "y": -0.5,
+      "x": 1
+    },
+    "4,1",
+    {
+      "x": 2.25,
+      "w": 2.5
+    },
+    "7,3\n\n\n\n\n\n\n\n\n4Finger Tap",
+    {
+      "w": 1.5
+    },
+    "4,0"
+  ],
+  [
+    {
+      "y": -0.5
+    },
+    "4,4",
+    {
+      "x": 1
+    },
+    "4,2",
+    {
+      "x": 11.25,
+      "w": 2.5
+    },
+    "5,7\n\n\n\n\n\n\n\n\nInertiaScroll",
+    {
+      "w": 1.5
+    },
+    "6,7"
+  ],
+  [
+    {
+      "y": -0.5,
+      "x": 1
+    },
+    "4,3"
+  ],
+  [
+    {
+      "x": 4.25,
+      "w": 2.5
+    },
+    "5,9\n\n\n\n\n\n\n\n\nRotate",
+    {
+      "w": 1.5
+    },
+    "6,9",
+    {
+      "x": 1,
+      "w": 2.5
+    },
+    "5,2\n\n\n\n\n\n\n\n\nCursorCorrection",
+    {
+      "w": 1.5
+    },
+    "6,2",
+    {
+      "x": 1,
+      "w": 2.5
+    },
+    "5,8\n\n\n\n\n\n\n\n\nScrollOnly",
+    {
+      "w": 1.5
+    },
+    "6,8"
+  ],
+  [
+    "0,0",
+    "0,1",
+    "0,2"
+  ]
 ]
     }
 }

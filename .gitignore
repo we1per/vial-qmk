@@ -116,3 +116,9 @@ user_song_list.h
 compile_commands.json
 .clangd/
 .cache/
+
+# Editor
+.vscode/
+
+# Codex local app config
+.codex/

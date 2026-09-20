@@ -15,26 +15,32 @@
  */
 
 #include "quantum.h"
-#include "wait.h"
-#include "gr_trackpad65_driver.h"
-
-const static int THREE_FINGER_GESTURE_ROW = 9;
-const static int FOUR_FINGER_GESTURE_ROW =  10;
+#include "../trackpad/gr_trackpad65.h"
 
 void matrix_scan_kb(void) {
-
-    if (trackpad_event.type != trackpad_event_none) {
-        int row = trackpad_event.num_of_fingers == 3 ?
-                    THREE_FINGER_GESTURE_ROW : FOUR_FINGER_GESTURE_ROW;
-        action_exec(MAKE_KEYEVENT(row, trackpad_event.type, true));
-        wait_ms(10);
-        action_exec(MAKE_KEYEVENT(row, trackpad_event.type, false));
-        reset_trackpad_event();
-    }
-
-    matrix_scan_user();
+    matrix_scan_trackpad();
 }
 
 report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
-    return pointing_device_task_user(mouse_report);
+    return pointing_device_task_trackpad(mouse_report);
+}
+
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    return process_record_trackpad(keycode, record);
+}
+
+void keyboard_post_init_kb(void) {
+    trackpad_matrix_config_t matrix_config = {
+        .finger_gesture_rows = {9,10,11,12},
+        .configuration_row = 14,
+        .configuration_layer = 0,
+        .allow_rotate = false
+    };
+
+    keyboard_post_init_trackpad(matrix_config);
+    // Customise these values to desired behaviour
+    debug_enable = true;
+    // debug_matrix = true;
+    debug_keyboard = true;
+    debug_mouse = true;
 }
